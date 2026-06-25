@@ -3,7 +3,7 @@
  * Plugin Name: CookieFence
  * Plugin URI: https://github.com/cookiefence/cookiefence-wordpress-plugin
  * Description: Installs the CookieFence consent banner script.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: CookieFence
  * Author URI: https://cookiefence.com
  * License: GPL-2.0-or-later
@@ -20,7 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 const COOKIEFENCE_OPTION_SITE_UUID = 'cookiefence_site_uuid';
-const COOKIEFENCE_TAG_BASE_URL     = 'https://api.cookiefence.com';
+
+if ( ! defined( 'COOKIEFENCE_TAG_BASE_URL' ) ) {
+	define( 'COOKIEFENCE_TAG_BASE_URL', 'https://api.cookiefence.com' );
+}
 
 add_action( 'admin_menu', 'cookiefence_add_settings_page' );
 add_action( 'admin_init', 'cookiefence_register_settings' );
@@ -164,7 +167,12 @@ function cookiefence_render_head_tags() {
 		return;
 	}
 
-	$tag_base_url = untrailingslashit( COOKIEFENCE_TAG_BASE_URL );
+	$tag_base_url = cookiefence_get_tag_base_url();
+
+	if ( '' === $tag_base_url ) {
+		return;
+	}
+
 	$script_url   = $tag_base_url . '/tags/' . rawurlencode( $site_uuid ) . '.js';
 
 	printf(
@@ -175,6 +183,18 @@ function cookiefence_render_head_tags() {
 		'<script id="CookieFence" src="%s"></script>' . "\n",
 		esc_url( $script_url )
 	);
+}
+
+/**
+ * Gets the CookieFence tag base URL.
+ *
+ * The default can be overridden in wp-config.php before plugins load:
+ * define( 'COOKIEFENCE_TAG_BASE_URL', 'http://localhost:3001' );
+ *
+ * @return string Normalized base URL without a trailing slash.
+ */
+function cookiefence_get_tag_base_url() {
+	return untrailingslashit( trim( (string) COOKIEFENCE_TAG_BASE_URL ) );
 }
 
 /**
