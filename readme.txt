@@ -4,7 +4,7 @@ Tags: cookies, consent, privacy, gdpr, cookie banner
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Install the CookieFence consent banner on a WordPress site with a single site UU
 
 CookieFence adds the CookieFence consent banner script to your WordPress site's public pages.
 
-After activating the plugin, go to Settings > CookieFence and paste the site UUID from the CookieFence admin UI. The plugin adds the recommended preconnect hint and CookieFence script tag in the document head.
+After activating the plugin, go to Settings > CookieFence and paste the site UUID from the CookieFence admin UI. The plugin adds the recommended preconnect hint and CookieFence script tag as early in `wp_head` as WordPress allows.
 
 == Installation ==
 
@@ -42,6 +42,10 @@ Yes. Define `COOKIEFENCE_TAG_BASE_URL` in `wp-config.php` before WordPress loads
 The plugin uses `https://api.cookiefence.com` when no override is defined.
 
 == Changelog ==
+
+= 0.1.2 =
+
+* Load CookieFence earlier in the public document head by using an early `wp_head` priority.
 
 = 0.1.1 =
 

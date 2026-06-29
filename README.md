@@ -4,7 +4,7 @@ Install the CookieFence consent banner on a WordPress site with one setting: the
 
 ## Installation
 
-1. Download [`cookiefence-0.1.1.zip`](https://github.com/cookiefence/cookiefence-wordpress-plugin/raw/main/releases/cookiefence-0.1.1.zip).
+1. Download [`cookiefence-0.1.2.zip`](https://github.com/cookiefence/cookiefence-wordpress-plugin/raw/main/releases/cookiefence-0.1.2.zip).
 2. In WordPress, go to `Plugins > Add Plugin > Upload Plugin`.
 3. Upload the ZIP and activate CookieFence.
 4. Go to `Settings > CookieFence`.
@@ -12,7 +12,7 @@ Install the CookieFence consent banner on a WordPress site with one setting: the
 
 GitHub Releases are the preferred long-term distribution channel, but the installable ZIP is tracked in this repository for the initial public download.
 
-When configured, the plugin adds these tags to public pages as high in the document head as WordPress allows:
+When configured, the plugin adds these tags to public pages as early in `wp_head` as WordPress allows:
 
 ```html
 <link rel="preconnect" href="https://api.cookiefence.com" crossorigin>
@@ -46,8 +46,8 @@ Build an uploadable plugin ZIP:
 rm -rf dist
 mkdir -p dist/cookiefence releases
 cp cookiefence.php readme.txt LICENSE dist/cookiefence/
-(cd dist && zip -r ../releases/cookiefence-0.1.1.zip cookiefence -x "*.DS_Store")
-unzip -l releases/cookiefence-0.1.1.zip
+(cd dist && zip -r ../releases/cookiefence-0.1.2.zip cookiefence -x "*.DS_Store")
+unzip -l releases/cookiefence-0.1.2.zip
 ```
 
 ## License
