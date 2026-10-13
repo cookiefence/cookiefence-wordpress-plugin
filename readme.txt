@@ -4,7 +4,7 @@ Tags: cookies, consent, privacy, gdpr, cookie banner
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,11 +37,21 @@ No. CookieFence tags are only added after a valid UUID is saved.
 
 Yes. Define `COOKIEFENCE_TAG_BASE_URL` in `wp-config.php` before WordPress loads plugins:
 
-`define( 'COOKIEFENCE_TAG_BASE_URL', 'http://localhost:3001' );`
+`define( 'COOKIEFENCE_TAG_BASE_URL', 'https://tag.dev.cookiefence.com' );`
 
-The plugin uses `https://api.cookiefence.com` when no override is defined.
+The plugin uses `https://tag.cookiefence.com` when no override is defined.
+
+== Upgrade Notice ==
+
+= 0.1.3 =
+Verify that your site tag is published at https://tag.cookiefence.com before upgrading. Existing host overrides remain in effect. Consent submissions continue to use the API origin configured in the published tag.
 
 == Changelog ==
+
+= 0.1.3 =
+
+* Deliver the tag and preconnect from https://tag.cookiefence.com by default.
+* Preserve the saved site UUID, early head placement and explicit host overrides.
 
 = 0.1.2 =
 
