@@ -1,0 +1,50 @@
+name: Validate and release plugin
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - name: Check PHP syntax
+        run: find cookiefence.php includes plugin-update-checker tests -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Test release update selection
+        run: php tests/updater.php
+      - name: Test packaging
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build version-matched ZIP
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: python3 scripts/build-release.py --tag "$RELEASE_TAG"
+      - name: Publish complete release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$RELEASE_TAG" dist/cookiefence.zip --verify-tag --draft --title "CookieFence ${RELEASE_TAG#v}" --notes-file CHANGELOG.md
+          gh release edit "$RELEASE_TAG" --draft=false

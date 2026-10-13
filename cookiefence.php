@@ -1,9 +1,10 @@
 <?php
 /**
- * Plugin Name: CookieFence
+ * Plugin Name: CookieFence – Cookie Consent Banner
  * Plugin URI: https://github.com/cookiefence/cookiefence-wordpress-plugin
- * Description: Installs the CookieFence consent banner script.
- * Version: 0.1.3
+ * Description: Connect your WordPress site to CookieFence to display a customizable cookie consent banner and manage visitor consent. Requires a CookieFence account.
+ * Version: 1.0.0
+ * Update URI: https://github.com/cookiefence/cookiefence-wordpress-plugin
  * Author: CookieFence
  * Author URI: https://cookiefence.com
  * License: GPL-2.0-or-later
@@ -25,6 +26,9 @@ const COOKIEFENCE_HEAD_PRIORITY     = -999999;
 if ( ! defined( 'COOKIEFENCE_TAG_BASE_URL' ) ) {
 	define( 'COOKIEFENCE_TAG_BASE_URL', 'https://tag.cookiefence.com' );
 }
+
+require_once __DIR__ . '/includes/updater.php';
+add_action( 'plugins_loaded', 'cookiefence_initialize_updater' );
 
 add_action( 'admin_menu', 'cookiefence_add_settings_page' );
 add_action( 'admin_init', 'cookiefence_register_settings' );
