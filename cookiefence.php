@@ -3,7 +3,7 @@
  * Plugin Name: CookieFence
  * Plugin URI: https://github.com/cookiefence/cookiefence-wordpress-plugin
  * Description: Installs the CookieFence consent banner script.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: CookieFence
  * Author URI: https://cookiefence.com
  * License: GPL-2.0-or-later
@@ -23,7 +23,7 @@ const COOKIEFENCE_OPTION_SITE_UUID = 'cookiefence_site_uuid';
 const COOKIEFENCE_HEAD_PRIORITY     = -999999;
 
 if ( ! defined( 'COOKIEFENCE_TAG_BASE_URL' ) ) {
-	define( 'COOKIEFENCE_TAG_BASE_URL', 'https://api.cookiefence.com' );
+	define( 'COOKIEFENCE_TAG_BASE_URL', 'https://tag.cookiefence.com' );
 }
 
 add_action( 'admin_menu', 'cookiefence_add_settings_page' );
@@ -190,7 +190,7 @@ function cookiefence_render_head_tags() {
  * Gets the CookieFence tag base URL.
  *
  * The default can be overridden in wp-config.php before plugins load:
- * define( 'COOKIEFENCE_TAG_BASE_URL', 'http://localhost:3001' );
+ * define( 'COOKIEFENCE_TAG_BASE_URL', 'https://tag.dev.cookiefence.com' );
  *
  * @return string Normalized base URL without a trailing slash.
  */
