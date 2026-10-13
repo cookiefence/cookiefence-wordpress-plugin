@@ -3,3 +3,5 @@ dist/
 *.zip
 !releases/
 !releases/*.zip
+__pycache__/
+*.pyc

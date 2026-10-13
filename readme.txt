@@ -1,20 +1,24 @@
-=== CookieFence ===
+=== CookieFence – Cookie Consent Banner ===
 Contributors: cookiefence
 Tags: cookies, consent, privacy, gdpr, cookie banner
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.3
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Install the CookieFence consent banner on a WordPress site with a single site UUID.
+Connect your site to CookieFence for a customizable cookie consent banner and visitor consent management. Requires a CookieFence account.
 
 == Description ==
 
 CookieFence adds the CookieFence consent banner script to your WordPress site's public pages.
 
 After activating the plugin, go to Settings > CookieFence and paste the site UUID from the CookieFence admin UI. The plugin adds the recommended preconnect hint and CookieFence script tag as early in `wp_head` as WordPress allows.
+
+A CookieFence account and configured website are required. Manage banner appearance and consent behavior in CookieFence. This plugin installs the hosted tag; optional scripts from themes, other plugins, or tag managers still need the supported CookieFence controlled-script setup.
+
+The plugin contacts GitHub to check for updates and download published plugin releases. Public pages load the hosted CookieFence tag, which handles visitor consent according to your website configuration.
 
 == Installation ==
 
@@ -43,10 +47,19 @@ The plugin uses `https://tag.cookiefence.com` when no override is defined.
 
 == Upgrade Notice ==
 
+= 1.0.0 =
+Manually install this version once to enable future updates through WordPress. Your saved site UUID and host override are preserved. If upgrading from before 0.1.3, first verify your tag is published at https://tag.cookiefence.com.
+
 = 0.1.3 =
 Verify that your site tag is published at https://tag.cookiefence.com before upgrading. Existing host overrides remain in effect. Consent submissions continue to use the API origin configured in the published tag.
 
 == Changelog ==
+
+= 1.0.0 =
+
+* Add native WordPress update notifications using published GitHub release ZIPs.
+* Automate installable ZIP packaging and GitHub Releases for version tags.
+* Clarify the plugin name, description, and CookieFence account requirement.
 
 = 0.1.3 =
 
