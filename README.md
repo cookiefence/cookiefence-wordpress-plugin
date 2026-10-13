@@ -44,7 +44,7 @@ The updater uses the public GitHub API without credentials. It accepts only non-
 
 Before upgrading an existing installation, publish its tag to Cloudflare and verify that `https://tag.cookiefence.com/tags/{uuid}.js` returns the expected JavaScript. Version 0.1.3 changes both the script and preconnect default to this host; the stored UUID and script execution order are preserved. Consent events continue to use the API origin embedded in the published tag.
 
-Upload the new ZIP in WordPress and choose to replace the installed plugin. An existing `COOKIEFENCE_TAG_BASE_URL` override still takes precedence; remove or update an old API override when deliberately switching that site to the CDN. If a site is not yet published to the CDN, keep the previous plugin or explicitly use `https://api.cookiefence.com` until publication is verified.
+Upload the new ZIP in WordPress and choose to replace the installed plugin. An existing `COOKIEFENCE_TAG_BASE_URL` override still takes precedence; remove or update an old API override when deliberately switching that site to the CDN. Verify that the CDN publication is ready before installing. API-hosted JavaScript delivery is retired; do not use the API host as a tag override. Consent submissions continue to the API endpoint embedded in the published tag.
 
 ## Development and releases
 
