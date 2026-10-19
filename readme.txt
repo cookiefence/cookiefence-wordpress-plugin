@@ -4,7 +4,7 @@ Tags: cookies, consent, privacy, gdpr, cookie banner
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ The plugin contacts GitHub to check for updates and download published plugin re
 
 1. Upload the `cookiefence` folder to `/wp-content/plugins/`, or install the plugin ZIP from the WordPress admin.
 2. Activate CookieFence from the Plugins screen.
-3. Go to Settings > CookieFence.
+3. Activation opens Settings > CookieFence automatically. After bulk or network activation, open this page manually for the site you want to configure.
 4. Paste the site UUID from the CookieFence admin UI and save changes.
 
 == Frequently Asked Questions ==
@@ -54,6 +54,11 @@ Manually install this version once to enable future updates through WordPress. Y
 Verify that your site tag is published at https://tag.cookiefence.com before upgrading. Existing host overrides remain in effect. Consent submissions continue to use the API origin configured in the published tag.
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Open the CookieFence UUID settings page automatically after individual activation.
+* Preserve the normal bulk and network activation flow.
 
 = 1.0.0 =
 

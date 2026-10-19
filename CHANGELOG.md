@@ -1,4 +1,10 @@
-# CookieFence 1.0.0
+# CookieFence 1.0.1
+
+- Open Settings > CookieFence automatically after individual activation so the administrator can enter the site UUID.
+- Keep bulk and network activation flows unchanged. The redirect runs once for the activating administrator.
+- Preserve saved site UUIDs and tag-host overrides.
+
+## CookieFence 1.0.0
 
 - Receive plugin update notifications in WordPress from published GitHub Releases.
 - Install complete release ZIPs through WordPress, with support for WordPress's optional automatic updates.

@@ -3,7 +3,7 @@
  * Plugin Name: CookieFence – Cookie Consent Banner
  * Plugin URI: https://github.com/cookiefence/cookiefence-wordpress-plugin
  * Description: Connect your WordPress site to CookieFence to display a customizable cookie consent banner and manage visitor consent. Requires a CookieFence account.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Update URI: https://github.com/cookiefence/cookiefence-wordpress-plugin
  * Author: CookieFence
  * Author URI: https://cookiefence.com
@@ -30,9 +30,51 @@ if ( ! defined( 'COOKIEFENCE_TAG_BASE_URL' ) ) {
 require_once __DIR__ . '/includes/updater.php';
 add_action( 'plugins_loaded', 'cookiefence_initialize_updater' );
 
+register_activation_hook( __FILE__, 'cookiefence_schedule_setup_redirect' );
+add_action( 'admin_init', 'cookiefence_maybe_redirect_to_setup' );
 add_action( 'admin_menu', 'cookiefence_add_settings_page' );
 add_action( 'admin_init', 'cookiefence_register_settings' );
 add_action( 'wp_head', 'cookiefence_render_head_tags', COOKIEFENCE_HEAD_PRIORITY );
+
+/**
+ * Schedules setup for the activating administrator after WordPress finishes activation.
+ *
+ * @param bool $network_wide Whether this is a network activation.
+ */
+function cookiefence_schedule_setup_redirect( $network_wide ) {
+	if ( $network_wide || ! is_admin() || wp_doing_ajax()
+		|| ( defined( 'WP_CLI' ) && WP_CLI )
+		|| ! current_user_can( 'manage_options' )
+		|| isset( $_REQUEST['activate-multi'] )
+		|| ( isset( $_REQUEST['action'] ) && 'activate-selected' === $_REQUEST['action'] )
+		|| ( isset( $_REQUEST['action2'] ) && 'activate-selected' === $_REQUEST['action2'] ) ) {
+		return;
+	}
+
+	set_transient( 'cookiefence_setup_redirect_' . get_current_user_id(), true, MINUTE_IN_SECONDS );
+}
+
+/**
+ * Sends the activating administrator to the UUID field once, on the next admin request.
+ */
+function cookiefence_maybe_redirect_to_setup() {
+	if ( wp_doing_ajax() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+		return;
+	}
+
+	$key = 'cookiefence_setup_redirect_' . get_current_user_id();
+	if ( ! get_transient( $key ) ) {
+		return;
+	}
+
+	delete_transient( $key );
+	if ( is_network_admin() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	wp_safe_redirect( admin_url( 'options-general.php?page=cookiefence' ) );
+	exit;
+}
 
 /**
  * Adds the CookieFence settings page under the WordPress Settings menu.
