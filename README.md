@@ -7,7 +7,7 @@ Install the CookieFence consent banner on a WordPress site with one setting: the
 1. Download [`cookiefence.zip`](https://github.com/cookiefence/cookiefence-wordpress-plugin/releases/latest/download/cookiefence.zip) from the latest published GitHub Release.
 2. In WordPress, go to `Plugins > Add Plugin > Upload Plugin`.
 3. Upload the ZIP and activate CookieFence.
-4. Go to `Settings > CookieFence`.
+4. Activation opens `Settings > CookieFence` automatically. After bulk or network activation, open this page manually for the site you want to configure.
 5. Paste the site UUID from CookieFence and save changes.
 
 Requires a CookieFence account and a website configured in CookieFence. Customize your banner in the CookieFence dashboard. The plugin installs the tag; optional scripts installed by themes, other plugins, or tag managers need the supported controlled-script setup.
